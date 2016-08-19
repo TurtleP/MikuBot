@@ -1,2 +1,2 @@
-$PORT=5000
-web: ruby run.rb
+web: echo "foobar" > /dev/null
+bot: bundle exec ruby bot.rb
