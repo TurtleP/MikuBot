@@ -1,9 +1,7 @@
 require 'discordrb'
 require 'yaml'
 
-config = YAML.load_file('config.yaml')
-
-$bot = Discordrb::Commands::CommandBot.new token: config["token"], application_id: config["appid"], prefix: config["prefix"]
+$bot = Discordrb::Commands::CommandBot.new token: ENV["token"], application_id: ENV["appid"], prefix: ENV["prefix"]
 
 Dir['commands/*.rb'].each do | command |
 	puts "#Loaded: #{command}"
