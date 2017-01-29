@@ -3,7 +3,7 @@
 
 $bot.command(
 	:addstaff,
-	required_permissions: [:manage_roles],
+	required_permissions: [:manage_channels],
 	min_args: 1,
 	description: "Set a user to Staff status.",
 	usage: "addstaff [user]",
