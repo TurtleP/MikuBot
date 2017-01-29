@@ -9,8 +9,6 @@ $bot.command(
 
 	:slap,
 
-	required_permissions: [],
-
 	min_args: 1,
 
 	description: "Slaps a user on the server.",
