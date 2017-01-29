@@ -9,6 +9,4 @@ $bot.command(
 	help_available: true
 ) do | event |
 	user = event.message.edit("( ° ʖ °)")
-
-	event << nil
 end
