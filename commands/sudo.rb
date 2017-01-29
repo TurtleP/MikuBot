@@ -5,7 +5,7 @@ $bot.command(
 
 	:sudo,
 
-	required_permissions: [:manage_roles],
+	required_permissions: [:manage_channels],
 
 	min_args: 0,
 
