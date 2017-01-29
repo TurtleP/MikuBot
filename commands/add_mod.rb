@@ -2,7 +2,7 @@
 # adds a moderator to the server
 
 $bot.command(
-	:add_mod,
+	:addmod,
 	required_permissions: [:manage_roles],
 	min_args: 1,
 	description: "Set a user to Staff status.",
