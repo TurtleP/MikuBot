@@ -3,7 +3,7 @@
 
 $bot.command(
 	:delstaff,
-	required_permissions: [:manage_roles],
+	required_permissions: [:manage_channels],
 	min_args: 1,
 	description: "Removes a user from Staff status.",
 	usage: "delstaff [user]",
