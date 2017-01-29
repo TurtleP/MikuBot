@@ -9,7 +9,7 @@ $bot.command(
 
 	:slap,
 
-	required_permissions: [:manage_roles],
+	required_permissions: [],
 
 	min_args: 1,
 
@@ -24,6 +24,4 @@ $bot.command(
 	user = event.message.mentions.first.on(event.server)
 
 	event << "#{user.mention} has been slapped by #{event.message.author(event.server)}!"
-
-	event << nil
 end
