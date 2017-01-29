@@ -5,7 +5,7 @@ $bot.command(
 	:add_mod,
 	required_permissions: [:manage_roles],
 	min_args: 1,
-	description: "Set a user to Moderator status.",
+	description: "Set a user to Staff status.",
 	usage: "add_mod [user]",
 	help_available: true
 ) do | event |
@@ -13,12 +13,12 @@ $bot.command(
 
 	# use do keyword to split a block across lines
 	mod_status = event.server.roles.find do |role|
-	  role.name == "Moderator"
+	  role.name == "Staff"
 	end
 
 	#check if they *are* Moderator
 	if user.role? mod_status
-		event << "#{user.name} is already a Moderator!"
+		event << "#{user.name} is already Staff!"
 		return
 	end
 
