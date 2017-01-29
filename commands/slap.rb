@@ -1,9 +1,6 @@
-
 # kick.rb
 
 # kicks a user from the server
-
-
 
 $bot.command(
 
@@ -22,4 +19,7 @@ $bot.command(
 	user = event.message.mentions.first.on(event.server)
 
 	event << "#{user.mention} has been slapped by #{event.message.author(event.server)}!"
+	
+	event << nil
+	
 end
