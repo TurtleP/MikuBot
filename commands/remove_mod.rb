@@ -6,7 +6,7 @@ $bot.command(
 	required_permissions: [:manage_roles],
 	min_args: 1,
 	description: "Removes a user from Staff status.",
-	usage: "rem_mod [user]",
+	usage: "delmod [user]",
 	help_available: true
 ) do | event |
 	user = event.message.mentions.first.on(event.server)
