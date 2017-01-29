@@ -1,5 +1,5 @@
 $bot.command(
-	:list_bans,
+	:listbans,
 	min_args: 0,
 	description: "List the users banned on the server.",
 	usage: "list_bans",
