@@ -5,7 +5,7 @@ $bot.command(
 	:remove_mod,
 	required_permissions: [:manage_roles],
 	min_args: 1,
-	description: "Removes a user from Moderator status.",
+	description: "Removes a user from Staff status.",
 	usage: "rem_mod [user]",
 	help_available: true
 ) do | event |
@@ -13,7 +13,7 @@ $bot.command(
 
 	# use do keyword to split a block across lines
 	mod_status = event.server.roles.find do |role|
-		role.name == "Staff"
+		role.name == "staff"
 	end
 
 	#check if they *are* Moderator
