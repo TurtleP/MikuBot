@@ -4,9 +4,9 @@
 $bot.command(
 	:kick,
 	required_permissions: [:manage_roles],
-	min_args: 2,
+	min_args: 1,
 	description: "Kicks a user on the server.",
-	usage: "kick [user] [reason]",
+	usage: "kick [user] (reason)",
 	help_available: true
 ) do | event, mention, *reason |
 	reason = reason.join(' ')
