@@ -8,12 +8,6 @@ Dir['commands/*.rb'].each do | command |
 	require_relative command
 end
 
-$bot.message(contains: 'I blame Turret') do |event|
-	if rand(100) < 10
-		event << 'Always~! :heart:'
-	end
-end
-
 $bot.ready do | event |
 	avatar = File.open("media/avatar.jpg")
 	$bot.profile.avatar = avatar
