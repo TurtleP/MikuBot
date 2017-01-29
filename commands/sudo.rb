@@ -37,9 +37,11 @@ $bot.command(
 	#check if they *are* Sudo
 
 	if user.role? sudo_status
-
-		event << "#{user.name} is already Sudo'd!"
-
+		
+		user.remove_role(sudo_status)
+		
+		event << "#{user.mention}@mikubot~$ sudo has been revoked!"
+		
 		return
 
 	end
