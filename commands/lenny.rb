@@ -8,5 +8,5 @@ $bot.command(
 	usage: "lenny",
 	help_available: true
 ) do | event |
-	event << "( ° ʖ °)"
+	event << "( ͡° ͜ʖ ͡°)"
 end
