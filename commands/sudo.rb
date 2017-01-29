@@ -20,10 +20,10 @@ $bot.command(
 	if user.role? sudo_status
 		user.remove_role(sudo_status)
 		
-		event << "#{user.mention}@mikubot~$ sudo has been revoked!"
+		event << "mikubot#{user.mention}~$ sudo has been revoked!"
 	else
 		user.add_role(sudo_status)
 
-		event << "#{user.mention}@mikubot~$ sudo has been activated!"
+		event << "mikubot#{user.mention}~$ sudo has been activated!"
 	end
 end
