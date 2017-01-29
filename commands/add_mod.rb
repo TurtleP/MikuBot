@@ -6,7 +6,7 @@ $bot.command(
 	required_permissions: [:manage_roles],
 	min_args: 1,
 	description: "Set a user to Staff status.",
-	usage: "add_mod [user]",
+	usage: "addstaff [user]",
 	help_available: true
 ) do | event |
 	user = event.message.mentions.first.on(event.server)
