@@ -23,8 +23,7 @@ $bot.command(
 
 	user = event.message.mentions.first.on(event.server)
 
-	event << "#{user.mention} has been slapped!"
+	event << "#{user.mention} has been slapped by #{event.message.author(event.server)}!"
 
 	event << nil
-
 end
