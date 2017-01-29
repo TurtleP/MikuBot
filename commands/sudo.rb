@@ -27,8 +27,6 @@ $bot.command(
 
 	end
 
-
-
 	#check if they *are* Sudo
 
 	if user.role? sudo_status
@@ -44,4 +42,6 @@ $bot.command(
 	user.add_role(sudo_status)
 
 	event << "#{user.mention}@mikubot~$ sudo has been activated!"
+	
+	event << nil
 end
