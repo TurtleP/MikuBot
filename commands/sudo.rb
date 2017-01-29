@@ -17,7 +17,7 @@ $bot.command(
 
 ) do | event |
 
-	user = event.message.author(event.server)
+	user = event.message.author()
 
 	# use do keyword to split a block across lines
 
