@@ -7,7 +7,7 @@
 
 $bot.command(
 
-	:kick,
+	:slap,
 
 	required_permissions: [:manage_roles],
 
