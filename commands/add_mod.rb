@@ -13,7 +13,7 @@ $bot.command(
 
 	# use do keyword to split a block across lines
 	mod_status = event.server.roles.find do |role|
-	  role.name == "Staff"
+	  role.name == "staff"
 	end
 
 	#check if they *are* Moderator
