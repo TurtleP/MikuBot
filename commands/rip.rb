@@ -7,12 +7,16 @@ $bot.command(
 	description: "Pay respects",
 	usage: "rip (user)",
 	help_available: true
-) do | event |
-	user = event.message.mentions.first.on(event.server)
+) do | event, *user |
+    user = user.join(' ')
+
+	user_obj = event.server.bans.find do | user_object |
+		user_object.username == user
+	end
 	
 	msg = "Press **_F_** to pay respects"
 	
-	if user.nil?
+	if user_obj.nil?
 		event << msg
 	else
 		event << msg + " to #{user.username}!"
