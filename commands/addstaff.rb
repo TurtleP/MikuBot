@@ -1,4 +1,4 @@
-# add_mod.rb
+# addstaff.rb
 # adds a moderator to the server
 
 $bot.command(
