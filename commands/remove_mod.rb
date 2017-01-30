@@ -17,8 +17,8 @@ $bot.command(
 	end
 
 	#check if they *are* Moderator
-	unless user.role? modStatus
-	  event << "#{user.name} is not Staff!"
+	unless user.role? mod_status
+	  event << "#{user.username} is not Staff!"
 	  return
 	end
 
