@@ -1,4 +1,4 @@
-# remove_mod.rb
+# delstaff.rb
 # removes a user from Moderator status
 
 $bot.command(
