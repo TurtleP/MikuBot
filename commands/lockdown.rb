@@ -2,7 +2,7 @@
 # locks the channel down
 
 $bot.command(
-	:lockdown,
+	:lock,
 	required_permissions: [:manage_channels],
 	min_args: 0,
 	description: "Sets message locks on the current channel.",
@@ -12,7 +12,7 @@ $bot.command(
 	if event.channel.private?
 		break
 	
-	lockdown_status = Discordrb::Permissions.new
+	lockdown_status = $channel_perms.new
 	lockdown_status.can_send_messages = false
 
 	everyone_role = event.server.roles.find do |role|
@@ -20,10 +20,12 @@ $bot.command(
 	end
 
 	event.channel.define_overwrite(everyone_role, 0, lockdown_status)
+
+	event << "Channel has been locked down!"
 end
 
 $bot.command(
-	:unlockdown,
+	:unlock,
 	required_permissions: [:manage_channels],
 	min_args: 0,
 	description: "Sets message locks on the current channel.",
@@ -33,7 +35,7 @@ $bot.command(
 	if event.channel.private?
 		break
 	
-	lockdown_status = Discordrb::Permissions.new
+	lockdown_status = $channel_perms.new
 	lockdown_status.can_send_messages = true
 
 	everyone_role = event.server.roles.find do |role|
@@ -41,4 +43,6 @@ $bot.command(
 	end
 
 	event.channel.define_overwrite(everyone_role, 0, lockdown_status)
+
+	event << "Thanks for your co-operation! :heart:"
 end
