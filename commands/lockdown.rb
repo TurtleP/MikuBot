@@ -15,7 +15,7 @@ $bot.command(
 	lockdown_status.can_send_messages = true
 
 	everyone_role = event.server.roles.find do |role|
-	  role.name == "everyone"
+	  role.name == "@everyone"
 	end
 
 	event.channel.define_overwrite(everyone_role, 0, lockdown_status)
@@ -37,7 +37,7 @@ $bot.command(
 	lockdown_status.can_send_messages = true
 
 	everyone_role = event.server.roles.find do |role|
-	  role.name == "everyone"
+	  role.name == "@everyone"
 	end
 
 	event.channel.define_overwrite(everyone_role, lockdown_status, 0)

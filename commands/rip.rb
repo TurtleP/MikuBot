@@ -8,5 +8,5 @@ $bot.command(
 	usage: "rip (user)",
 	help_available: true
 ) do | event |
-	event << "Press **_F_** to pay respects"
+	event << "Press **__F__** to pay respects"
 end
