@@ -11,7 +11,10 @@ end
 
 $bot.ready do | event |
 	avatar = File.open("media/avatar.jpg")
+	
 	$bot.profile.avatar = avatar
+
+	$bot.game("$help")
 end
 
 $bot.run
