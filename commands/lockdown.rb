@@ -1,3 +1,5 @@
+require 'discordrb'
+
 # lockdown.rb
 # locks the channel down
 
@@ -12,7 +14,7 @@ $bot.command(
 	if event.channel.private?
 		break
 	
-	lockdown_status = $channel_perms.new
+	lockdown_status = Discordrb::Permissions.new
 	lockdown_status.can_send_messages = false
 
 	everyone_role = event.server.roles.find do |role|
@@ -35,7 +37,7 @@ $bot.command(
 	if event.channel.private?
 		break
 	
-	lockdown_status = $channel_perms.new
+	lockdown_status = Discordrb::Permissions.new
 	lockdown_status.can_send_messages = true
 
 	everyone_role = event.server.roles.find do |role|
