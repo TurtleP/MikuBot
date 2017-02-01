@@ -15,24 +15,20 @@ $bot.command(
 		role.name == "mute"
 	end
 
-	if !user.nil?
-		if user.role? mute_status
-			channel_status = Discordrb::Permissions.new
-			channel_status.can_send_messages = true
+	if user.role? mute_status
+		channel_status = Discordrb::Permissions.new
+		channel_status.can_send_messages = true
 
-			channels = event.server.channels
+		channels = event.server.channels
 
-			for i in 0 .. channels.length do
-				channels[i].define_overwrite(user, channel_status, 0)
-			end
-
-			user.remove_role(mute_status)
-
-			event << "#{user.mention} has been unmuted by #{event.message.author.username}!"
-		else
-			event << "#{user.username} is not muted!"
+		for i in 0 .. channels.length do
+			channels[i].define_overwrite(user, channel_status, 0)
 		end
+
+		user.remove_role(mute_status)
+
+		event << "#{user.mention} has been unmuted by #{event.message.author.username}!"
 	else
-		event << "Could not find the specified user."
+		event << "#{user.username} is not muted!"
 	end
 end
