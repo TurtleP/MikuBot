@@ -26,7 +26,8 @@ $bot.command(
 
 			for i in 0 .. channels.length do
 				channels[i].define_overwrite(mute_status, 0, channel_status)
-
+			end
+			
 			user.add_role(mute_status)
 
 			event << "#{user.mention} has been muted by #{event.message.author.username}!"

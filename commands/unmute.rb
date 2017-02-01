@@ -24,7 +24,8 @@ $bot.command(
 
 			for i in 0 .. channels.length do
 				channels[i].define_overwrite(mute_status, channel_status, 0)
-
+			end
+			
 			user.remove_role(mute_status)
 
 			event << "#{user.mention} has been unmuted by #{event.message.author.username}!"
