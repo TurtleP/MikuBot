@@ -18,13 +18,6 @@ $bot.command(
 	if user.role? mute_status
 		event << "#{user.username} is already muted!"
 	else
-		channel_status = Discordrb::Permissions.new
-		channel_status.can_send_messages = true
-
-		event.server.text_channels.each { | channel |
-			channel.define_overwrite(user, 0, channel_status)
-		}
-
 		user.add_role(mute_status)
 
 		event << "#{user.mention} has been muted by #{event.message.author.username}!"

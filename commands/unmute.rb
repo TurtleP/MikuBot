@@ -16,15 +16,6 @@ $bot.command(
 	end
 
 	if user.role? mute_status
-		channel_status = Discordrb::Permissions.new
-		channel_status.can_send_messages = true
-
-		channels = event.server.text_channels
-
-		event.server.text_channels.each { | channel |
-			channel.define_overwrite(user, 0, channel_status)
-		}
-
 		user.remove_role(mute_status)
 
 		event << "#{user.mention} has been unmuted by #{event.message.author.username}!"
