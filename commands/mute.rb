@@ -11,13 +11,17 @@ $bot.command(
 ) do | event |
 	user = event.message.mentions.first.on(event.server)
 
-	mute_status = server.roles.find {|role| role.name == 'mute'}
+	mute_status = event.server.roles.find do |role|
+		role.name == "mute"
+	end
 
-	if user.role? mute_status
-		event << "#{user.username} is already muted!"
-	else
-		user.add_role(mute_status)
+	if !user.nil?
+		if user.role? mute_status
+			event << "#{user.username} is already muted!"
+		else
+			user.add_role(mute_status)
 
-		event << "#{user.mention} has been muted by #{event.message.author.username}!"
+			event << "#{user.mention} has been muted by #{event.message.author.username}!"
+		end
 	end
 end

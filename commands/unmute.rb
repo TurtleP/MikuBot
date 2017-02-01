@@ -11,12 +11,18 @@ $bot.command(
 ) do | event |
 	user = event.message.mentions.first.on(event.server)
 
-	mute_status = server.roles.find {|role| role.name == 'mute'}
+	mute_status = event.server.roles.find do |role|
+		role.name == "mute"
+	end
 
-	if user.role? mute_status
-		user.remove_role(mute_status)
-		event << "#{user.mention} has been unmuted by #{event.message.author.username}!"
+	if !user.nil?
+		if user.role? mute_status
+			user.remove_role(mute_status)
+			event << "#{user.mention} has been unmuted by #{event.message.author.username}!"
+		else
+			event << "#{user.username} is not muted!"
+		end
 	else
-		event << "#{user.username} is not muted!"
+		event << "Could not find the specified user."
 	end
 end
