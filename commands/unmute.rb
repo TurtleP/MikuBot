@@ -15,7 +15,6 @@ $bot.command(
 
 	if user.role? mute_status
 		user.remove_role(mute_status)
-
 		event << "#{user.mention} has been unmuted by #{event.message.author.username}!"
 	else
 		event << "#{user.username} is not muted!"
