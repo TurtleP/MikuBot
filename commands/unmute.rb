@@ -19,7 +19,7 @@ $bot.command(
 		channel_status = Discordrb::Permissions.new
 		channel_status.can_send_messages = true
 
-		channels = event.server.channels
+		channels = event.server.text_channels
 
 		for i in 0 .. channels.length do
 			channels[i].define_overwrite(user, channel_status, 0)
