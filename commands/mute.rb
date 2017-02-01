@@ -19,9 +19,19 @@ $bot.command(
 		if user.role? mute_status
 			event << "#{user.username} is already muted!"
 		else
+			channel_status = Discordrb::Permissions.new
+			channel_status.can_send_messages = true
+
+			channels = event.server.channels
+
+			for i in 0 .. channels.length do
+				channels[i].define_overwrite(mute_status, 0, channel_status)
+
 			user.add_role(mute_status)
 
 			event << "#{user.mention} has been muted by #{event.message.author.username}!"
 		end
+	else
+		event << "Could not find the specified user."
 	end
 end
