@@ -59,4 +59,3 @@ $bot.command(
 
 	event << "Thanks for your co-operation!"
 end
->>>>>>> 0ab3a0ac7c05036438f97d454928dcabdd6344c4
