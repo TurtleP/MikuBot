@@ -21,11 +21,9 @@ $bot.command(
 		channel_status = Discordrb::Permissions.new
 		channel_status.can_send_messages = true
 
-		channels = event.server.text_channels
-
-		for i in 0 .. channels.length do
-			channels[i].define_overwrite(user, 0, channel_status)
-		end
+		event.server.text_channels.each { | channel |
+			channel.define_overwrite(user, 0, channel_status)
+		}
 
 		user.add_role(mute_status)
 

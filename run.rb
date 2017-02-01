@@ -14,7 +14,7 @@ $bot.ready do | event |
 	
 	$bot.profile.avatar = avatar
 
-	$bot.game("$help")
+	$bot.game = "$help"
 end
 
 $bot.run

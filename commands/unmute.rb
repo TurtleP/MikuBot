@@ -21,9 +21,9 @@ $bot.command(
 
 		channels = event.server.text_channels
 
-		for i in 0 .. channels.length do
-			channels[i].define_overwrite(user, channel_status, 0)
-		end
+		event.server.text_channels.each { | channel |
+			channel.define_overwrite(user, 0, channel_status)
+		}
 
 		user.remove_role(mute_status)
 
