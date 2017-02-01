@@ -10,9 +10,9 @@ $bot.command(
 ) do | event |
 	user = event.message.mentions.first.on(event.server)
 
-	if user.username == "Miku"
+	if user.username == "bot_user"
 		event << "Nice try, #{event.message.author.username}."
-	elseif user.username == event.message.author.username
+	elsif user.username == event.message.author.username
 		event << "You have slapped yourself. Good job, #{event.message.author.username} :ok_hand:"
 	else
 		event << "#{user.mention} has been slapped by #{event.message.author().username}!"
