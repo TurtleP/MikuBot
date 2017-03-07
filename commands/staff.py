@@ -87,12 +87,14 @@ class Staff:
     async def bans(self):
         """List banned users"""
         banned_users = await self.bot.get_bans(self.bot.server)
-        if banned_users is None:
+        
+        names = ""
+        for i in range(len(banned_users)):
+            names = names + banned_users[i].name + " "
+
+        if names == "":
             await self.bot.say("No banned users have been found.")
         else:
-            names = ""
-            for i in range(len(banned_users)):
-                names = names + banned_users[i].name + " "
             await self.bot.say(names)
 
     #ban
