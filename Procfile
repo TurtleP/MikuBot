@@ -1,1 +1,1 @@
-bot: 'bundle exec python run.py'
+bot: bundle exec python run.py
