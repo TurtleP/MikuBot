@@ -26,14 +26,6 @@ class Meme:
         else:
             await self.bot.say(target.mention + " has been slapped by " + author.display_name + "!")
     
-    #soon:tm:
-    @commands.command(pass_context=True)
-    async def soon(self, ctx):
-        try:
-            await self.bot.edit_message(ctx.message, "soon:tm:")
-        except discord.errors.Forbidden:
-            await self.bot.say(":anger: I don't have permission to do this.")
-    
     #rip
     @commands.command(pass_context=True)
     async def rip(self, ctx):
@@ -49,12 +41,24 @@ class Meme:
             await self.bot.say("Pray with :regional_indicator_f: for " + target.display_name)
     
     #lenny
+    @commands.has_permissions(manage_messages=True)
     @commands.command(pass_context=True)
     async def lenny(self, ctx):
         try:
-            await self.bot.edit_message(ctx.message, "( ͡° ͜ʖ ͡°)")
+            await self.bot.delete_message(ctx.message)
+            await self.bot.say("( ͡° ͜ʖ ͡°)")
         except discord.errors.Forbidden:
             await self.bot.say(":anger: I don't have permission to do this.")
 
+       #soon:tm:
+    @commands.has_permissions(manage_messages=True)
+    @commands.command(pass_context=True)
+    async def soon(self, ctx):
+        try:
+            await self.bot.delete_message(ctx.message)
+            await self.bot.say("soon:tm:")
+        except discord.errors.Forbidden:
+            await self.bot.say(":anger: I don't have permission to do this.")
+            
 def setup(bot):
     bot.add_cog(Meme(bot))
