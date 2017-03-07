@@ -169,8 +169,8 @@ class Staff:
             return
         
         try:
-            amnt = min(amnt, 30)
-            await self.bot.purge_from(channel, amnt)
+            amnt = min(amnt, 100)
+            await self.bot.purge_from(channel, limit=amnt)
         except discord.errors.Forbidden:
             await self.bot.say(":anger: I don't have permission to do this.")
 
