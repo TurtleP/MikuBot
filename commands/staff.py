@@ -181,7 +181,7 @@ class Staff:
         
         counter = 0
         amnt = min(amnt, 100)
-        async for message in client.logs_from(channel, limit=amnt):
+        async for message in self.bot.logs_from(channel, limit=amnt):
             try:
                 await self.bot.purge_from(channel, limit=amnt, check=None)
             except discord.errors.Forbidden:
