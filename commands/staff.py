@@ -161,7 +161,6 @@ class Staff:
         channel = ctx.message.channel
         
         to_purge = list(arg)
-        to_purge.pop(0) # remove command
         
         try:
             amnt = int(to_purge[0])
