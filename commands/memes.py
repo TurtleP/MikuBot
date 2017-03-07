@@ -11,7 +11,8 @@ class Meme:
 
     #slap
     @commands.command(pass_context=True)
-    async def slap(self, ctx): 
+    async def slap(self, ctx):
+        """Slap a user"""
         try:
             author = ctx.message.author
             target = ctx.message.mentions[0]
@@ -29,6 +30,7 @@ class Meme:
     #rip
     @commands.command(pass_context=True)
     async def rip(self, ctx):
+        """Pay respects. User optional"""
         try:
             target = ctx.message.mentions[0]
         except IndexError:
@@ -44,6 +46,7 @@ class Meme:
     @commands.has_permissions(manage_messages=True)
     @commands.command(pass_context=True)
     async def lenny(self, ctx):
+        """React with a lenny face"""
         try:
             await self.bot.delete_message(ctx.message)
             await self.bot.say("( ͡° ͜ʖ ͡°)")
@@ -54,6 +57,7 @@ class Meme:
     @commands.has_permissions(manage_messages=True)
     @commands.command(pass_context=True)
     async def soon(self, ctx):
+        """React with soon:tm:"""
         try:
             await self.bot.delete_message(ctx.message)
             await self.bot.say("soon:tm:")
