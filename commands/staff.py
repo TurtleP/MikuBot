@@ -157,10 +157,10 @@ class Staff:
     #purge
     @commands.has_permissions(manage_messages=True)
     @commands.command(pass_context=True)
-    async def purge(self, ctx, amnt):
+    async def purge(self, ctx, arg):
         channel = ctx.message.channel
         
-        to_purge = list(amnt)
+        to_purge = list(arg)
         to_purge.pop(0) # remove command
         
         try:
@@ -170,6 +170,7 @@ class Staff:
             return
         
         try:
+            amnt = min(amnt, 30)
             await self.bot.purge_from(channel, amnt)
         except discord.errors.Forbidden:
             await self.bot.say(":anger: I don't have permission to do this.")
