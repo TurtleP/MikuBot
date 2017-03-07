@@ -13,6 +13,7 @@ class Staff:
     @commands.has_permissions(manage_messages=True)
     @commands.command(pass_context=True)
     async def sudo(self, ctx):
+        """Sets a staff member to Sudo"""
         user = ctx.message.author
 
         has_role = False
@@ -32,6 +33,7 @@ class Staff:
     @commands.has_permissions(manage_messages=True)
     @commands.command(pass_context=True)
     async def addstaff(self, ctx):
+        """Add a staff member"""
         try:
             try:
                 user = ctx.message.mentions[0]
@@ -58,6 +60,7 @@ class Staff:
     @commands.has_permissions(manage_messages=True)
     @commands.command(pass_context=True)
     async def delstaff(self, ctx):
+        """Remove a staff member"""
         try:
             try:
                 user = ctx.message.mentions[0]
@@ -65,10 +68,10 @@ class Staff:
                 await self.bot.say("Please mention a user.")
                 return
 
-            has_role = True
+            has_role = False
             for role in user.roles:
                 if role == self.bot.staff_role:
-                    has_role = False
+                    has_role = True
                     break
                 
             if not has_role:
@@ -82,6 +85,7 @@ class Staff:
     #bans
     @commands.command()
     async def bans(self):
+        """List banned users"""
         banned_users = await self.bot.get_bans(self.bot.server)
         if banned_users is None:
             await self.bot.say("No banned users have been found.")
@@ -95,6 +99,7 @@ class Staff:
     @commands.has_permissions(administrator=True)
     @commands.command(pass_context=True)
     async def ban(self, ctx, *msg):
+        """Ban a user"""
         try:
             try:
                 user = ctx.message.mentions[0]
@@ -120,6 +125,7 @@ class Staff:
     @commands.has_permissions(administrator=True)
     @commands.command(pass_context=True)
     async def unban(self, ctx):
+        """Unban a user"""
         try:
             user = ctx.message.content.split(" ")[1]
             
@@ -136,6 +142,7 @@ class Staff:
     @commands.has_permissions(administrator=True)
     @commands.command(pass_context=True)
     async def kick(self, ctx, *msg):
+        """Kick a user"""
         try:
             user = ctx.message.mentions[0]
         except IndexError:
@@ -158,6 +165,7 @@ class Staff:
     @commands.has_permissions(manage_messages=True)
     @commands.command(pass_context=True)
     async def purge(self, ctx, arg):
+        """Delete messages"""
         channel = ctx.message.channel
         
         to_purge = list(arg)
@@ -178,6 +186,7 @@ class Staff:
     @commands.has_permissions(administrator=True)
     @commands.command(pass_context=True)
     async def lockdown(self, ctx):
+        """(un)Lock a channel"""
         try:
             permission = ctx.message.channel.overwrites_for(self.bot.everyone_role)
             if permission.send_messages == False:
