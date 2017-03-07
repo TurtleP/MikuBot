@@ -153,6 +153,26 @@ class Staff:
         await self.bot.send_message(user, "You have been kicked from " + self.bot.server.name + "!" + add_string)
 
         self.bot.kick(user)
+    
+    #purge
+    @commands.has_permissions(manage_messages=True)
+    @commands.command(pass_context=True)
+    async def purge(self, ctx, amnt):
+        channel = ctx.message.channel
+        
+        to_purge = list(amnt)
+        to_purge.pop(0) # remove command
+        
+        try:
+            amnt = int(to_purge[0])
+        except ValueError:
+            await self.bot.say("Please specify an amount.")
+            return
+        
+        try:
+            await self.bot.purge_from(channel, amnt)
+        except discord.errors.Forbidden:
+            await self.bot.say(":anger: I don't have permission to do this.")
 
     #lockdown (toggle)
     @commands.has_permissions(administrator=True)
