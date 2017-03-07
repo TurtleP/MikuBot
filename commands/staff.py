@@ -172,17 +172,20 @@ class Staff:
         
         to_purge = list(arg)
         
+        
         try:
             amnt = int(to_purge[0])
         except ValueError:
             await self.bot.say("Please specify an amount.")
             return
         
-        try:
-            amnt = min(amnt, 100)
-            await self.bot.purge_from(channel, limit=amnt, check=None)
-        except discord.errors.Forbidden:
-            await self.bot.say(":anger: I don't have permission to do this.")
+        counter = 0
+        amnt = min(amnt, 100)
+        async for message in client.logs_from(channel, limit=amnt):
+            try:
+                await self.bot.purge_from(channel, limit=amnt, check=None)
+            except discord.errors.Forbidden:
+                await self.bot.say(":anger: I don't have permission to do this.")
 
     #lockdown (toggle)
     @commands.has_permissions(administrator=True)
