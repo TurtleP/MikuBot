@@ -35,8 +35,7 @@ async def on_command_error(error, ctx):
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 @bot.event
-async def on_ready():
-
+async def on_ready():
     await bot.edit_profile(password=(None), avatar=(avatar_file.read()))
 
     await bot.change_presence(game=discord.Game(name=prefix + "help"))
@@ -47,17 +46,20 @@ async def on_ready():
         bot.server = server #elite hax
         bot.sudo_role = discord.utils.get(server.roles, name="sudo")
         bot.staff_role = discord.utils.get(server.roles, name="staff")
+        bot.mute_role = discord.utils.get(server.roles, name="mute")
         bot.everyone_role = server.default_role
-
+        
     try:
         await bot.edit_profile(username=('{}'.format(username or "TurtleBot")))
     except discord.errors.Forbidden:
-        await bot.say(":anger: I don't have permission to do this!")
+        await bot.say(":anger: I don't have permission to do this!")
 
-# loads commands
+#loads commands
 commands = [
     "memes",
-    "staff"
+    "staff",
+    "sudo",
+    "general"
 ]
 
 for command in commands:
