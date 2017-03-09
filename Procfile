@@ -1,2 +1,1 @@
-web: echo "foobar" > /dev/null
-bot: bundle exec ruby run.rb
+bot: python3 run.py
