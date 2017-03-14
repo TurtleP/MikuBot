@@ -10,6 +10,7 @@ import asyncio
 import os
 import traceback
 import sys
+import datetime
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path)
@@ -35,7 +36,8 @@ async def on_command_error(error, ctx):
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 @bot.event
-async def on_ready():
+async def on_ready():
+
     await bot.edit_profile(password=(None), avatar=(avatar_file.read()))
 
     await bot.change_presence(game=discord.Game(name=prefix + "help"))
@@ -52,7 +54,9 @@ async def on_ready():
     try:
         await bot.edit_profile(username=('{}'.format(username or "TurtleBot")))
     except discord.errors.Forbidden:
-        await bot.say(":anger: I don't have permission to do this!")
+        await bot.say(":anger: I don't have permission to do this!")
+    
+    await bot.say("I'm online! Current date and time: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 #loads commands
 commands = [
