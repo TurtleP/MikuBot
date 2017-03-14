@@ -43,7 +43,6 @@ class Meme:
             await self.bot.say("Pray with :regional_indicator_f: for " + target.display_name)
     
     #lenny
-    @commands.has_permissions(manage_messages=True)
     @commands.command(pass_context=True)
     async def lenny(self, ctx):
         """React with a lenny face"""
@@ -53,8 +52,7 @@ class Meme:
         except discord.errors.Forbidden:
             await self.bot.say(":anger: I don't have permission to do this.")
 
-       #soon:tm:
-    @commands.has_permissions(manage_messages=True)
+    #soon:tm:
     @commands.command(pass_context=True)
     async def soon(self, ctx):
         """React with soon:tm:"""
