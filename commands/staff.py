@@ -57,7 +57,7 @@ class Staff:
         """Delete messages"""
         channel = ctx.message.channel
         
-        to_purge = list(arg)
+        to_purge = arg.split(" ")
         
         try:
             amnt = int(to_purge[0])
