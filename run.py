@@ -19,6 +19,12 @@ prefix = os.environ['prefix']
 token = os.environ['token']
 username = os.environ['username']
 
+LOAD_HOMEBREW_CMDS = True
+firmware_list = [
+    "1.0.0", "2.0.0", "3.0.0",
+    "4.0.0", "5.0.0"
+]
+
 bot = commands.Bot(prefix, description=bot_description, pm_help=None)
 
 # set avatar on load
@@ -37,39 +43,48 @@ async def on_command_error(error, ctx):
 
 @bot.event
 async def on_ready():
-
-    await bot.edit_profile(password=(None), avatar=(avatar_file.read()))
-
     await bot.change_presence(game=discord.Game(name=prefix + "help"))
-
-    bot.username = username
     
     for server in bot.servers:
         bot.server = server #elite hax
         bot.sudo_role = discord.utils.get(server.roles, name="sudo")
         bot.staff_role = discord.utils.get(server.roles, name="staff")
         bot.mute_role = discord.utils.get(server.roles, name="mute")
+        bot.firmware_roles = {}
         bot.everyone_role = server.default_role
-        
+
+    for firmware in firmware_list:
+        if discord.utils.get(server.roles, name=firmware) is None:
+            await bot.create_role(bot.server, name=firmware, mentionable=True)
+
+    #loads commands
+    commands = [
+        "memes",
+        "staff",
+        "sudo",
+        "general"
+    ]
+
+    homebrew_commands = [
+        "firmware"
+    ]
+
+    load_extensions(commands)
+    if LOAD_HOMEBREW_CMDS:
+        load_extensions(homebrew_commands)
+
     try:
         await bot.edit_profile(username=('{}'.format(username or "TurtleBot")))
     except discord.errors.Forbidden:
         await bot.say(":anger: I don't have permission to do this!")
     
-    await bot.say("I'm online! Current date and time: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    print("I'm online! Current date and time: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
-#loads commands
-commands = [
-    "memes",
-    "staff",
-    "sudo",
-    "general"
-]
-
-for command in commands:
-    try:
-        bot.load_extension('commands.' + command)
-    except Exception as e:
-        print('{} failed to load.\n{}: {}'.format(command, type(e).__name__, e))
+def load_extensions(command_ext_list):
+    for command in command_ext_list:
+        try:
+            bot.load_extension('commands.' + command)
+        except Exception as e:
+            print('{} failed to load.\n{}: {}'.format(command, type(e).__name__, e))
 
 bot.run(token)

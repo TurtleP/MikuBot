@@ -25,7 +25,7 @@ class Meme:
         elif author.display_name == target.display_name:
             await self.bot.say("You have slapped yourself. Good job, " + author.display_name + " :ok_hand:")
         else:
-            await self.bot.say(target.mention + " has been slapped by " + author.display_name + "!")
+            await self.bot.say(target.display_name + " has been slapped by " + author.display_name + "!")
     
     #rip
     @commands.command(pass_context=True)
