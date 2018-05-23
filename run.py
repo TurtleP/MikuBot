@@ -50,7 +50,7 @@ async def on_ready():
         bot.sudo_role = discord.utils.get(server.roles, name="sudo")
         bot.staff_role = discord.utils.get(server.roles, name="staff")
         bot.mute_role = discord.utils.get(server.roles, name="mute")
-        bot.firmware_roles = {}
+        bot.firmwares = firmware_list
         bot.everyone_role = server.default_role
 
     for firmware in firmware_list:

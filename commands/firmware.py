@@ -23,14 +23,36 @@ class Firmware:
         user = ctx.message.author
 
         if cmd_split and len(cmd_split) > 1:
-            role = discord.utils.get(self.bot.server.roles, name=cmd_split[1])
-
-            if role is None:
-                await self.bot.say("Could not find firmware '" + cmd_split[1] + "' in the list!")
+            if cmd_split[1] == "list":
+                await self.bot.say(self.list_users())
             else:
-                if not self.has_role(user, role):
-                    await self.bot.add_roles(user, role)
-                    await self.bot.say("<:lovepotion:417143423523487754> " + user.display_name + " is on Firmware v" + cmd_split[1] + "!")
+                role = discord.utils.get(self.bot.server.roles, name=cmd_split[1])
+
+                if role is None:
+                    await self.bot.say("Could not find firmware '" + cmd_split[1] + "' in the list!")
+                else:
+                    if not self.has_role(user, role):
+                        await self.bot.add_roles(user, role)
+                        await self.bot.say("<:lovepotion:417143423523487754> " + user.display_name + " is on Firmware v" + cmd_split[1] + "!")
+    
+    def list_users(self):
+        user_list = {}
+        for user in self.bot.server.members:
+            for index in range(len(self.bot.firmwares)):
+                if self.has_role(user, self.bot.firmwares[index]):
+                    if not self.bot.firmwares[index] in user_list:
+                        user_list[self.bot.firmwares[index]] = list()
+
+                    user_list[self.bot.firmwares[index]].append(user.display_name)
+
+        output = "```"
+        for firmware in user_list:
+            output += firmware + ":\n"
+            for index in range(len(user_list[firmware])):
+                output += "  " + user_list[firmware][index] + "\n"
+            output += "\n"
+        output += "```"
+        return output
 
     def has_role(self, user, check_role):
         has_role = False
