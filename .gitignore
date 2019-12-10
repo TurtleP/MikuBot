@@ -1,3 +1,4 @@
 #config things
 *.yaml
 .gitignore
+__pycache__
