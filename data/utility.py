@@ -1,3 +1,6 @@
+extensions = ["admin", "wiki"]
+
+
 def is_staff(ctx):
     if not ctx.guild:
         return False

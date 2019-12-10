@@ -1,19 +1,24 @@
 #!/usr/bin/python3
 
-from discord.ext import commands
-import discord
 import os
 
-bot_description = "A lightweight server administration bot"
+import discord
+from discord.ext import commands
+
+from data.utility import extensions
+
+bot_description = "A lightweight server bot for Tiny Turtle Industries"
 
 # Get our environment variables
 BOT_PREFIX = os.environ['BOT_PREFIX']
 BOT_TOKEN = os.environ['BOT_TOKEN']
 
 # Create a new Bot instance
-bot = commands.Bot(BOT_PREFIX, description=bot_description, pm_help=None)
+bot = commands.Bot(BOT_PREFIX, description=bot_description)
 
-bot.load_extension("data.cogs.admin")
+for item in extensions:
+    bot.load_extension(f"data.cogs.{item}")
+
 
 @bot.event
 async def on_command_error(ctx, error):
