@@ -1,0 +1,17 @@
+{
+    "showcase":
+    [
+        {
+            "title": "Screenshot",
+            "description": "Create a preview screenshot. Nintendo Switch previews should be 1280x720. 3DS previews should be 400x240 (or 400x480 for both screens)."
+        },
+        {
+            "title": "Description",
+            "description":"Write up a paragraph or two describing your library or game."
+        },
+        {
+            "title": "Submit a Request",
+            "description":"Go to https://github.com/TurtleP/TurtleP.github.io and submit an Issue. Please label it as a Wiki Showcase Submission. Be sure to include contributors (if more than two or three, please upload a text file with everyone, the title of your library or game, other assets from these instructions, and the console it is for."
+        }
+    ]
+}

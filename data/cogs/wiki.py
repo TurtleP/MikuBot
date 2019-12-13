@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Cog
 
+from data.utility import get_embed_data
+
 
 class Wiki(Cog):
     def __init__(self, bot):
@@ -28,28 +30,17 @@ class Wiki(Cog):
                               url="https://turtlep.github.io/LovePotion/wiki/#/showcase",
                               description="Submission Instructions")
 
-        screenshot_desc = """
-        Create a preview screenshot. Nintendo Switch previews should be 1280x720.
-        3DS previews should be 400x240 (or 400x480 for both screens).
-        """
-        embed.add_field(name="1. Screenshot",
-                        value=screenshot_desc, inline=False)
+        showcase_embed_data = get_embed_data("showcase")
 
-        description_desc = """
-        Write up a paragraph or two describing your library or game.
-        """
-        embed.add_field(name="2. Description",
-                        value=description_desc, inline=False)
+        if not showcase_embed_data:
+            return
 
-        submit_desc = """
-        Go to https://github.com/TurtleP/TurtleP.github.io and submit and Issue.
-        Please label it as a Wiki Showcase Submission. Be sure to include
-        contributors (if more than two or three, please upload a text file with
-        everyone), the title of your library or game, other assets from these
-        instructions, and the console it is for.
-        """
-        embed.add_field(name="3. Submit an Request",
-                        value=submit_desc)
+        for index in range(len(showcase_embed_data)):
+            embed_item = showcase_embed_data[index]
+
+            embed.add_field(name=f"{index + 1}. {embed_item['title']}",
+                            value=embed_item["description"],
+                            inline=False)
 
         await ctx.send(embed=embed)
 

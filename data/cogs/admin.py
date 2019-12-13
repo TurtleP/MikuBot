@@ -1,4 +1,5 @@
 import re
+import subprocess
 import traceback
 
 import discord
@@ -31,8 +32,25 @@ class Staff(Cog):
     @commands.guild_only()
     @commands.check(is_staff)
     @commands.command(name='update', aliases=['pull'])
-    async def update(self, ctx):
+    async def update(self, ctx, method="local"):
         """Reloads all of the bot cogs."""
+        if method == "git":
+            try:
+                await ctx.send("Performing Git pull..")
+
+                embed = discord.Embed(title="Git Update")
+
+                output = subprocess.run(
+                    ["git", "pull"], encoding='utf-8', capture_output=True)
+
+                embed.set_thumbnail(
+                    url="https://github.blog/wp-content/uploads/2019/01/cropped-github-favicon-512.png?fit=512%2C512")
+                embed.description = f"```git\n{output.stdout}```"
+
+                await ctx.send(embed=embed)
+            except Exception as e:
+                await ctx.send(str(e))
+
         await ctx.send("Reloading cogs..")
 
         for extension in extensions:
@@ -58,7 +76,7 @@ class Staff(Cog):
 
             await ctx.send(f":white_check_mark: `{ext}` was reloaded.")
         except:
-            await ctx.send(f":x: `{ext}` failed to load. Traceback:\n{traceback.format_exc()}\n")
+            await ctx.send(f":x: `{ext}` failed to load.\n```Traceback:\n{traceback.format_exc()}```\n")
             return
 
 

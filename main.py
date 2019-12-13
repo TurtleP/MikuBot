@@ -15,6 +15,7 @@ BOT_TOKEN = os.environ['BOT_TOKEN']
 
 # Create a new Bot instance
 bot = commands.Bot(BOT_PREFIX, description=bot_description)
+bot.status="Type $help for commands."
 
 for item in extensions:
     bot.load_extension(f"data.cogs.{item}")
