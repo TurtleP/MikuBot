@@ -12,6 +12,7 @@ from data.utility import extensions, is_bot_manager
 class BotManager(Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.last_reload = None
 
     @commands.guild_only()
     @commands.check(is_bot_manager)
@@ -25,7 +26,7 @@ class BotManager(Cog):
                 embed = discord.Embed(title="Git Update")
 
                 output = subprocess.run(
-                    ["git", "pull"], shell=True, encoding='utf-8', capture_output=True)
+                    ["git", "pull"], encoding='utf-8', capture_output=True)
 
                 embed.set_thumbnail(
                     url="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
@@ -41,13 +42,19 @@ class BotManager(Cog):
             reload_command = self.bot.get_command("reload")
 
             if reload_command:
-                await reload_command.callback(self, ctx, extension)
+                await reload_command.callback(self, ctx, extension, True)
 
     @commands.guild_only()
     @commands.check(is_bot_manager)
     @commands.command(name='reload')
-    async def reload(self, ctx, ext):
+    async def reload(self, ctx, ext=None, is_update=False):
         """Reloads a specific cog."""
+        if not ext:
+            ext = self.last_reload
+
+            if not self.last_reload:
+                return
+
         exists = any(extension == ext for extension in extensions)
 
         if not exists:
@@ -59,6 +66,9 @@ class BotManager(Cog):
             self.bot.load_extension(f"data.cogs.{ext}")
 
             await ctx.send(f":white_check_mark: `{ext}` was reloaded.")
+
+            if not is_update:
+                self.last_reload = ext
         except:
             await ctx.send(f":x: `{ext}` failed to load.\n```Traceback:\n{traceback.format_exc()}```\n")
             return
