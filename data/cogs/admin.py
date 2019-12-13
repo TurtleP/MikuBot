@@ -44,7 +44,7 @@ class Staff(Cog):
                     ["git", "pull"], encoding='utf-8', capture_output=True)
 
                 embed.set_thumbnail(
-                    url="https://github.blog/wp-content/uploads/2019/01/cropped-github-favicon-512.png?fit=512%2C512")
+                    url="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
                 embed.description = f"```git\n{output.stdout}```"
 
                 await ctx.send(embed=embed)
