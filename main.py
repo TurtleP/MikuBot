@@ -5,16 +5,15 @@ import os
 import discord
 from discord.ext import commands
 
-from data.utility import extensions
-
-bot_description = "A lightweight server bot for Tiny Turtle Industries"
+from data.utility import extensions, get_config_data
 
 # Get our environment variables
-BOT_PREFIX = os.environ['BOT_PREFIX']
+BOT_PREFIX = get_config_data("prefix")
 BOT_TOKEN = os.environ['BOT_TOKEN']
 
 # Create a new Bot instance
-bot = commands.Bot(BOT_PREFIX, description=bot_description)
+bot = commands.Bot(BOT_PREFIX,
+                   description=get_config_data("description"))
 
 for item in extensions:
     bot.load_extension(f"data.cogs.{item}")
