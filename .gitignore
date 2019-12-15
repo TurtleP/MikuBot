@@ -2,3 +2,4 @@
 *.yaml
 .gitignore
 __pycache__
+config.json
