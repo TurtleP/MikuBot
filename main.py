@@ -5,7 +5,8 @@ import os
 import discord
 from discord.ext import commands
 
-from data.utility import extensions, get_config_data, set_ext_status
+from data.utility import (extensions, get_config_data,
+                          set_ext_status, load_extension)
 import traceback
 
 # Get our environment variables
@@ -17,11 +18,7 @@ bot = commands.Bot(BOT_PREFIX,
                    description=get_config_data("description"))
 
 for item in extensions:
-    try:
-        bot.load_extension(f"data.cogs.{item}")
-        set_ext_status(item, True)
-    except commands.ExtensionFailed as e:
-        set_ext_status(item, False)
+    load_extension(bot, item)
 
 
 @bot.event

@@ -1,6 +1,7 @@
 import json
 
 import discord
+from discord.ext import commands
 
 extensions = {
     "bot_manager": None,
@@ -17,15 +18,38 @@ with open("config.json") as file:
     config_json = json.load(file)
 
 
+def load_extension(bot, which):
+    try:
+        bot.load_extension(f"data.cogs.{which}")
+        set_ext_status(which, True)
+    except commands.ExtensionFailed:
+        set_ext_status(which, False)
+        return
+    except commands.ExtensionAlreadyLoaded:
+        return
+
+    return True
+
+async def send_embed(ctx, title, color=None, description=None):
+    embed = discord.Embed(title=title)
+
+    embed.description = description
+    embed.colour = color
+
+    await ctx.send(embed=embed)
+
+
 def set_ext_status(which, success=False, embed=False):
     success = "✓"
     failure = "×"
 
     if which in extensions:
         if success:
-            dict.update(extensions, {f"{which}": f"{success} Online"})
+            dict.update(extensions, {f"{which}":
+                                     f"{success} Online"})
         else:
-            dict.update(extensions, {f"{which}": f"{failure} Error"})
+            dict.update(extensions, {f"{which}":
+                                     f"{failure} Error"})
 
 
 def get_embed_data(which):

@@ -39,7 +39,7 @@ class General(Cog):
         for item in extensions:
             embed.add_field(name=item,
                             value=extensions[item],
-                            inline=False)
+                            inline=True)
 
         await ctx.send(embed=embed)
 

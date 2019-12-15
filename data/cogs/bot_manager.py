@@ -1,18 +1,27 @@
 import re
 import subprocess
 import traceback
+from datetime import datetime
 
 import discord
 from discord.ext import commands
 from discord.ext.commands import Cog
 
-from data.utility import extensions, is_bot_manager, set_ext_status
+from data.utility import (extensions, is_bot_manager,
+                          set_ext_status, load_extension,
+                          send_embed)
 
 
 class BotManager(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.last_reload = None
+
+    def generate_summary(self, title, cog_names):
+        embed = discord.Embed(title=f"{title} Summary")
+        embed.description = datetime.now().strftime("%c")
+
+        return embed
 
     @commands.guild_only()
     @commands.check(is_bot_manager)
@@ -39,15 +48,26 @@ class BotManager(Cog):
         await ctx.send("Reloading cogs..")
 
         for extension in extensions:
-            reload_command = self.bot.get_command("reload")
+            try:
+                self.bot.unload_extension(f"data.cogs.{extension}")
+                load_extension(self.bot, extension)
+            except:
+                pass
 
-            if reload_command:
-                await reload_command.callback(self, ctx, extension, True)
+        status_command = self.bot.get_command("status")
+        await ctx.invoke(status_command)
+
+    async def check_command_exists(self, ctx, command, ext):
+        exists = any(extension == ext for extension in extensions)
+
+        if not exists:
+            await send_embed(ctx, f"{command} Failure",
+                             0xE53935, f"Cannot reload `{ext}`. Cog does not exist.")
 
     @commands.guild_only()
     @commands.check(is_bot_manager)
     @commands.command(name='reload')
-    async def reload(self, ctx, ext=None, is_update=False):
+    async def reload(self, ctx, ext=None):
         """Reloads a specific cog."""
         if not ext:
             ext = self.last_reload
@@ -55,40 +75,31 @@ class BotManager(Cog):
             if not self.last_reload:
                 return
 
-        exists = any(extension == ext for extension in extensions)
-
-        if not exists:
-            await ctx.send(f":x: Cannot reload `{ext}`. Cog does not exist.")
+        if not await self.check_command_exists(ctx, "Reload", ext):
             return
 
         try:
             self.bot.unload_extension(f"data.cogs.{ext}")
-            self.bot.load_extension(f"data.cogs.{ext}")
+            load_extension(self.bot, ext)
 
-            await ctx.send(f":white_check_mark: `{ext}` was reloaded.")
-
-            if not is_update:
-                self.last_reload = ext
+            self.last_reload = ext
         except:
-            await ctx.send(f":x: `{ext}` failed to load.\n```Traceback:\n{traceback.format_exc()}```\n")
-            return
+            await send_embed(ctx, "Reload Failure",
+                             0xE53935, f"Traceback:\n{traceback.format_exc()}")
 
     @commands.guild_only()
     @commands.check(is_bot_manager)
     @commands.command(name='load')
     async def load(self, ctx, ext):
         """Loads a specific cog."""
-        exists = any(extension == ext for extension in extensions)
-
-        if not exists:
-            await ctx.send(f":x: Cannot reload `{ext}`. Cog does not exist.")
+        if not await self.check_command_exists(ctx, "Load", ext):
             return
 
-        try:
-            self.bot.load_extension(f"data.cogs.{ext}")
-            set_ext_status(ext, True)
-        except:
-            set_ext_status(ext, True)
+        is_loaded = load_extension(self.bot, ext)
+
+        if is_loaded:
+            await send_embed(ctx, "Load Successful",
+                             0x7CB342, f"Loaded Cog `{ext}` successfully.")
 
 
 def setup(bot):
