@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Cog
 
-from data.utility import extensions, is_bot_manager
+from data.utility import extensions, is_bot_manager, set_ext_status
 
 
 class BotManager(Cog):
@@ -44,17 +44,6 @@ class BotManager(Cog):
             if reload_command:
                 await reload_command.callback(self, ctx, extension, True)
 
-    def cog_status_embed(self, ctx, cogs):
-        embed = discord.Embed(title="Cog Status")
-
-        load_success = "✓"
-        load_failure = "×"
-
-        embed.add_field(name="staff", value=f"{load_success} Successful")
-
-        return embed
-
-
     @commands.guild_only()
     @commands.check(is_bot_manager)
     @commands.command(name='reload')
@@ -84,8 +73,6 @@ class BotManager(Cog):
             await ctx.send(f":x: `{ext}` failed to load.\n```Traceback:\n{traceback.format_exc()}```\n")
             return
 
-        await ctx.send(embed=self.cog_status_embed(ctx, ext))
-
     @commands.guild_only()
     @commands.check(is_bot_manager)
     @commands.command(name='load')
@@ -99,11 +86,9 @@ class BotManager(Cog):
 
         try:
             self.bot.load_extension(f"data.cogs.{ext}")
-
-            await ctx.send(f":white_check_mark: `{ext}` was loaded.")
+            set_ext_status(ext, True)
         except:
-            await ctx.send(f":x: `{ext}` failed to load.\n```Traceback:\n{traceback.format_exc()}```\n")
-            return
+            set_ext_status(ext, True)
 
 
 def setup(bot):

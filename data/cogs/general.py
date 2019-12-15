@@ -4,6 +4,8 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Cog
 
+from data.utility import extensions
+
 
 class General(Cog):
     def __init__(self, bot):
@@ -22,13 +24,24 @@ class General(Cog):
     @commands.command(name='about')
     async def about(self, ctx):
         """Displays information about the bot."""
-        embed = discord.Embed(title="About Potion Böt", url="https://github.com/TurtleP/TurtleBot")
+        embed = discord.Embed(title="About Potion Böt",
+                              url="https://github.com/TurtleP/TurtleBot")
         await ctx.send(embed=embed)
 
     @commands.command(name='status')
     async def status(self, ctx):
         """Displays the status of cogs."""
-        pass
+        embed = discord.Embed(title="Cog Status")
+
+        current_time = datetime.now().strftime("%c")
+        embed.description = current_time
+
+        for item in extensions:
+            embed.add_field(name=item,
+                            value=extensions[item],
+                            inline=False)
+
+        await ctx.send(embed=embed)
 
 
 def setup(bot):

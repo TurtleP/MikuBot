@@ -1,15 +1,31 @@
 import json
 
-extensions = [
-    "bot_manager", "general",
-    "staff", "wiki", "github"
-]
+import discord
+
+extensions = {
+    "bot_manager": None,
+    "general":     None,
+    "github":      None,
+    "staff":       None,
+    "wiki":        None
+}
 
 with open("data/embeds.json") as file:
     embed_json = json.load(file)
 
 with open("config.json") as file:
     config_json = json.load(file)
+
+
+def set_ext_status(which, success=False, embed=False):
+    success = "✓"
+    failure = "×"
+
+    if which in extensions:
+        if success:
+            dict.update(extensions, {f"{which}": f"{success} Online"})
+        else:
+            dict.update(extensions, {f"{which}": f"{failure} Error"})
 
 
 def get_embed_data(which):
