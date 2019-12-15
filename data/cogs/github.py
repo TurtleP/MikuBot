@@ -14,13 +14,13 @@ class GitHub(Cog):
     @commands.guild_only()
     @commands.command(name='release', aliases=['stability'])
     async def release(self, ctx, console=None):
-        """Posts the stable release binaries for <console>."""
+        """Posts the stable release binaries."""
         pass
 
     @commands.guild_only()
     @commands.command(name='nightly')
     async def nightly(self, ctx, console=None):
-        """Posts the nightly release binaries for <console>."""
+        """Posts the nightly binaries."""
         pass
 
     @commands.guild_only()
